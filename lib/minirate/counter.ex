@@ -4,14 +4,13 @@ defmodule Minirate.Counter do
   alias :mnesia, as: Mnesia
 
   @default_increment 1
-  @mnesia_table Application.get_env(:minirate, :mnesia_table)
 
-  def check_limit(action, id, limit, now) do
-    check_limit(action, id, limit, now, @default_increment)
+  def check_limit(table, {action, id, limit, now}) do
+    check_limit(table, {action, id, limit, now}, @default_increment)
   end
 
-  def check_limit(action, id, limit, now, increment) do
-    with {:ok, count} <- get_count(action, id, now, increment),
+  def check_limit(table, {action, id, limit, now}, increment) do
+    with {:ok, count} <- get_count(table, {action, id, now}, increment),
          true <- (count <= limit) do
       {:allow, count}
     else
@@ -21,12 +20,11 @@ defmodule Minirate.Counter do
     end
   end
 
-  def get_count(action, id, now) do
-    get_count(action, id, now, @default_increment)
+  def get_count(table, {action, id, now}) do
+    get_count(table, {action, id, now}, @default_increment)
   end
 
-  def get_count(action, id, now, increment) do
-    table = @mnesia_table
+  def get_count(table, {action, id, now}, increment) do
     key = "#{action}_#{id}"
 
     transac_fn = fn ->
@@ -52,9 +50,7 @@ defmodule Minirate.Counter do
     end
   end
 
-  def expire_keys(time_of_expiration) do
-    table = @mnesia_table
-
+  def expire_keys(table, time_of_expiration) do
     transac_fn = fn ->
       match = {table, :"$1", :_, :"$2"}
       filter = [{:or, {:<, :"$2", time_of_expiration}, {:==, :"$2", time_of_expiration}}]
@@ -74,7 +70,7 @@ defmodule Minirate.Counter do
     end
   end
 
-  def create_mnesia_table do
-    Mnesia.create_table(@mnesia_table, attributes: [:key, :count, :timestamp])
+  def create_mnesia_table(table) do
+    Mnesia.create_table(table, attributes: [:key, :count, :timestamp])
   end
 end
