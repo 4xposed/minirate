@@ -25,6 +25,7 @@ defmodule Minirate.MixProject do
     [
       {:plug, "~> 1.0"},
       {:credo, "~> 1.1.2", only: [:dev, :test], runtime: false},
+      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false}
     ]
   end
 
