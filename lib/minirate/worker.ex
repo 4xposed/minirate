@@ -48,7 +48,7 @@ defmodule Minirate.Worker do
 
   def handle_info(:create_table, state) do
     Counter.create_mnesia_table(state.mnesia_table)
-    Worker.create_table
+    Worker.create_table()
   end
 
   defp now do

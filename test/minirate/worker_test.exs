@@ -28,7 +28,7 @@ defmodule Minirate.WorkerTest do
       assert {:allow, 2} == Worker.check_limit("test", "user_1", 2)
       assert {:block, :limit_exceeded} == Worker.check_limit("test", "user_1", 2)
 
-      Process.sleep 400
+      Process.sleep(400)
 
       assert {:allow, 1} == Worker.check_limit("test", "user_1", 2)
     end

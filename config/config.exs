@@ -5,4 +5,4 @@ config :minirate,
   expiry_ms: 60_000,
   cleanup_period_ms: 10_000
 
-import_config "#{Mix.env}.exs"
+import_config "#{Mix.env()}.exs"

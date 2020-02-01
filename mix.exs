@@ -13,7 +13,6 @@ defmodule Minirate.MixProject do
     ]
   end
 
-  # Run "mix help compile.app" to learn about applications.
   def application do
     [
       mod: {Minirate, []},
@@ -21,10 +20,10 @@ defmodule Minirate.MixProject do
     ]
   end
 
-  # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:credo, "~> 1.1.2", only: [:dev, :test], runtime: false}
+      {:plug, "~> 1.0"},
+      {:credo, "~> 1.1.2", only: [:dev, :test], runtime: false},
     ]
   end
 end
