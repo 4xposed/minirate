@@ -4,7 +4,7 @@ defmodule Minirate.MixProject do
   def project do
     [
       app: :minirate,
-      description: "Small rate-limiter.",
+      description: "A dead simple distributed rate limiter using Mnesia",
       package: package(),
       version: "0.1.0",
       elixir: "~> 1.8",
@@ -17,7 +17,7 @@ defmodule Minirate.MixProject do
   def application do
     [
       mod: {Minirate, []},
-      extra_applications: [:logger]
+      extra_applications: [:logger, :mnesia]
     ]
   end
 
