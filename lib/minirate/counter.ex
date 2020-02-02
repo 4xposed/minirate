@@ -72,5 +72,6 @@ defmodule Minirate.Counter do
 
   def create_mnesia_table(table) do
     Mnesia.create_table(table, attributes: [:key, :count, :timestamp])
+    Mnesia.add_table_index(table, :timestamp)
   end
 end

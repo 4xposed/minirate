@@ -21,13 +21,10 @@ defmodule Minirate.Worker do
     GenServer.call(__MODULE__, {:check_limit, action, id, limit})
   end
 
-  def create_table do
-    GenServer.info(__MODULE__, :create_table)
-  end
-
   # GenServer Callbacks
 
   def init(args) do
+    Process.send_after(self(), :create_table, 500)
     :timer.send_interval(args.cleanup_period_ms, :expire)
 
     {:ok, args}
@@ -48,7 +45,7 @@ defmodule Minirate.Worker do
 
   def handle_info(:create_table, state) do
     Counter.create_mnesia_table(state.mnesia_table)
-    Worker.create_table()
+    {:noreply, state}
   end
 
   defp now do
