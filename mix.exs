@@ -5,6 +5,8 @@ defmodule Minirate.MixProject do
     [
       app: :minirate,
       description: "A dead simple distributed rate limiter using Mnesia",
+      source_url: "https://github.com/4xposed/minirate",
+      docs: docs(),
       package: package(),
       version: "0.1.0",
       elixir: "~> 1.8",
@@ -18,6 +20,13 @@ defmodule Minirate.MixProject do
     [
       mod: {Minirate, []},
       extra_applications: [:logger, :mnesia]
+    ]
+  end
+
+  def docs do
+    [
+      main: "Minirate",
+      extras: ["README.md"]
     ]
   end
 

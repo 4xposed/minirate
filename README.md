@@ -79,7 +79,7 @@ def download_file(file, user_id) do
   end
 ```
 
-# Using Minirate.Plug
+## Using Minirate.Plug
 
 `Minirate.Plug` can rate-limit actions in your web application using the ip address of the requester.
 

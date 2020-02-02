@@ -1,9 +1,11 @@
 defmodule Minirate.Plug do
+  @moduledoc false
+
   import Plug.Conn
 
   alias Minirate
 
-  def init(), do: []
+  def init, do: []
 
   def init(opts) do
     Enum.each([:action, :limit], fn key ->
