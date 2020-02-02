@@ -86,10 +86,10 @@ def download_file(file, user_id) do
 You can just put in the pipeline of your web application something like this:
 
 ```elixir
-plug Minirate.Plug, [action: action, limt: 10_000]
+plug Minirate.Plug, [action: action, limit: 10_000]
 ```
 
 or for more flexibilty:
 ```elixir
-plug Minirate.Plug, [action: "custom_action", limt: 10_000] when action == :update or action == :create
+plug Minirate.Plug, [action: "custom_action", limit: 10_000] when action == :update or action == :create
 ```
