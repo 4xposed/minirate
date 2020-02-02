@@ -8,7 +8,7 @@ A dead simple distributed rate limiting library in Elixir using Mnesia.
 
 A distributed rate limiter with a focus on readable and well tested code.
 
-The counter is syncronized on all connected nodes
+The counter is syncronized over all connected nodes
 
 ```elixir
 iex(test2@127.0.0.1)19> Minirate.check_limit("download", "user_1", 100)
@@ -21,7 +21,7 @@ iex(test1@127.0.0.1)14> Minirate.check_limit("download", "user_1", 100)
 
 ## Installation
 
-Minirate is availabe as in Hex, just add it to your `mix.exs` file:
+Minirate is availabe as a package in Hex, just add it to your `mix.exs` file:
 
 ```elixir
 def deps
