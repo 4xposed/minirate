@@ -1,3 +1,5 @@
+![Elixir CI](https://github.com/4xposed/minirate/workflows/Elixir%20CI/badge.svg?event=push)
+
 # Minirate
 
 A dead simple distributed rate limiting library in Elixir using Mnesia.
