@@ -17,10 +17,6 @@ defmodule Minirate.Worker do
     GenServer.start_link(__MODULE__, args, name: __MODULE__)
   end
 
-  def check_limit(action, id, limit) do
-    GenServer.call(__MODULE__, {:check_limit, action, id, limit})
-  end
-
   # GenServer Callbacks
 
   def init(args) do
@@ -28,12 +24,6 @@ defmodule Minirate.Worker do
     :timer.send_interval(args.cleanup_period_ms, :expire)
 
     {:ok, args}
-  end
-
-  def handle_call({:check_limit, action, id, limit}, _from, state) do
-    time = now()
-    result = Counter.check_limit(state.mnesia_table, {action, id, limit, time})
-    {:reply, result, state}
   end
 
   def handle_info(:expire, state) do
