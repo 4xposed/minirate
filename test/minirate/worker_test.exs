@@ -9,28 +9,24 @@ defmodule Minirate.WorkerTest do
     on_exit(fn -> :mnesia.delete_table(:rate_limiter) end)
   end
 
-  describe ".check_limit/3" do
-    test "increments the counter" do
-      assert {:allow, 1} == Worker.check_limit("test", "user_1", 10)
-      assert {:allow, 2} == Worker.check_limit("test", "user_1", 10)
-      assert {:allow, 1} == Worker.check_limit("test", "user_2", 10)
-    end
+  describe ".expire" do
+    test "removes from the mnesia table the expired counters" do
+      time_in_ms = DateTime.utc_now() |> DateTime.to_unix(:millisecond)
+      old_timestamp = time_in_ms - 100_000
 
-    test "returns a a tuple with value {:block, :limit_exceeded} when the limit is reached" do
-      assert {:allow, 1} == Worker.check_limit("test", "user_1", 2)
-      assert {:allow, 2} == Worker.check_limit("test", "user_1", 2)
-      assert {:allow, 1} == Worker.check_limit("test", "user_2", 2)
-      assert {:block, :limit_exceeded} == Worker.check_limit("test", "user_1", 2)
-    end
+      :mnesia.dirty_write({:rate_limiter, "test_1", 2, old_timestamp})
+      :mnesia.dirty_write({:rate_limiter, "test_2", 4, time_in_ms})
 
-    test "counter is reset after expiration" do
-      assert {:allow, 1} == Worker.check_limit("test", "user_1", 2)
-      assert {:allow, 2} == Worker.check_limit("test", "user_1", 2)
-      assert {:block, :limit_exceeded} == Worker.check_limit("test", "user_1", 2)
+      Task.async(fn ->
+        Kernel.send(Worker, :expire)
+        Process.sleep(10)
+      end)
+      |> Task.await(:infinity)
 
-      Process.sleep(400)
+      assert [] == :mnesia.dirty_match_object({:rate_limiter, "test_1", :_, :_})
 
-      assert {:allow, 1} == Worker.check_limit("test", "user_1", 2)
+      assert [{:rate_limiter, "test_2", 4, time_in_ms}] ==
+               :mnesia.dirty_match_object({:rate_limiter, "test_2", :_, :_})
     end
   end
 end
