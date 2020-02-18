@@ -8,7 +8,7 @@ defmodule Minirate.MixProject do
       source_url: "https://github.com/4xposed/minirate",
       docs: docs(),
       package: package(),
-      version: "0.1.0",
+      version: "0.1.1",
       elixir: "~> 1.8",
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
