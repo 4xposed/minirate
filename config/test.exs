@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 config :minirate,
   mnesia_table: :rate_limiter,
