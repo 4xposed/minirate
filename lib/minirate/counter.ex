@@ -66,7 +66,7 @@ defmodule Minirate.Counter do
 
     case Mnesia.transaction(transac_fn) do
       {:atomic, :ok} -> :ok
-      {:aborted, reason} -> :error
+      {:aborted, _reason} -> :error
     end
   end
 

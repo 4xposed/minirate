@@ -29,7 +29,7 @@ defmodule Minirate.Plug do
 
   def call(conn, _), do: conn
 
-  def process(conn, action, limit, ip) when is_nil(ip) do
+  def process(conn, _action, _limit, ip) when is_nil(ip) do
     conn
   end
 
