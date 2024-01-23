@@ -4,10 +4,11 @@ defmodule Minirate do
   use Application
 
   def start(_type, _args) do
-    import Supervisor.Spec
-
     children = [
-      worker(Minirate.Worker, [mnesia_table(), expiry_ms(), cleanup_period_ms()])
+      %{
+        id: Minirate.Worker,
+        start: {Minirate.Worker, :start_link, [mnesia_table(), expiry_ms(), cleanup_period_ms()]}
+      }
     ]
 
     Supervisor.start_link(children, strategy: :one_for_one)
