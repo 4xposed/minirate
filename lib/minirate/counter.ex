@@ -16,7 +16,6 @@ defmodule Minirate.Counter do
     else
       false -> {:block, :limit_exceeded}
       {:error, reason} -> {:skip, reason}
-      _ -> {:skip, :something_failed}
     end
   end
 
