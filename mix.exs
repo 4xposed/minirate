@@ -8,8 +8,8 @@ defmodule Minirate.MixProject do
       source_url: "https://github.com/4xposed/minirate",
       docs: docs(),
       package: package(),
-      version: "0.1.1",
-      elixir: "~> 1.8",
+      version: "0.1.2",
+      elixir: "~> 1.15",
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
       deps: deps()
@@ -32,9 +32,9 @@ defmodule Minirate.MixProject do
 
   defp deps do
     [
-      {:plug, "~> 1.0"},
-      {:credo, "~> 1.1.2", only: [:dev, :test], runtime: false},
-      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false}
+      {:plug, "~> 1.16"},
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+      {:ex_doc, ">= 0.34.0", only: :dev, runtime: false}
     ]
   end
 
