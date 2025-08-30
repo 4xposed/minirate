@@ -1,6 +1,6 @@
 defmodule Minirate.PlugTest do
   use ExUnit.Case
-  use Plug.Test
+  import Plug.Test
 
   alias Minirate.Plug
 
