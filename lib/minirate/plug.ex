@@ -14,7 +14,7 @@ defmodule Minirate.Plug do
       if Kernel.is_nil(option) do
         raise(
           ArgumentError,
-          "Minirate.Plug requiers the option #{Kernel.inspect(option)} to be set."
+          "Minirate.Plug requires the option #{Kernel.inspect(key)} to be set."
         )
       end
     end)

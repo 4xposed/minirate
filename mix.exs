@@ -9,7 +9,7 @@ defmodule Minirate.MixProject do
       docs: docs(),
       package: package(),
       version: "0.1.2",
-      elixir: "~> 1.15",
+      elixir: "~> 1.18",
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
       deps: deps()
